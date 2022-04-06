@@ -26,4 +26,20 @@ public class PersonDAO {
     public Person show(int id){
         return people.stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
+
+    public void save(Person person){
+        person.setId(++PEOPLE_COUNT);
+        people.add(person);
+    }
+
+    public void update(int id, Person person){
+        Person personToBeUpdated = show(id);
+        personToBeUpdated.setName(person.getName());
+    }
+
+    public void delete(int id){
+        /*Person personForRemove = show(id);
+        people.remove(personForRemove);*/
+        people.removeIf(x -> x.getId() == id);
+    }
 }
